@@ -9,7 +9,7 @@ WildRydes.map = WildRydes.map || {};
         if (token) {
             authToken = token;
         } else {
-            window.location.href = '/signin.html';
+            window.location.href = '/ride.html';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
@@ -105,3 +105,4 @@ WildRydes.map = WildRydes.map || {};
         $('#updates').append($('<li>' + text + '</li>'));
     }
 }(jQuery));
+
