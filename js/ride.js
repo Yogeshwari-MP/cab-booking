@@ -3,7 +3,22 @@
 var WildRydes = window.WildRydes || {};
 WildRydes.map = WildRydes.map || {};
 
+    (function rideScopeWrapper($) {
+    var authToken;
 
+    // Get auth token
+    WildRydes.authToken.then(function setAuthToken(token) {
+        if (token) {
+            authToken = token;
+        } else {
+            alert('Authentication required.');
+            // Removed redirect to signin.html
+        }
+    }).catch(function handleTokenError(error) {
+        console.error('Token error:', error);
+        alert('Authentication failed.');
+    });
+        
     function requestUnicorn(pickupLocation) {
         $.ajax({
             method: 'POST',
@@ -94,6 +109,7 @@ WildRydes.map = WildRydes.map || {};
         $('#updates').append($('<li>' + text + '</li>'));
     }
 }(jQuery));
+
 
 
 
