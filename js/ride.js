@@ -11,7 +11,7 @@ WildRydes.map = WildRydes.map || {};
         if (token) {
             authToken = token;
         } else {
-            alert('Authentication required.');
+        
             // Removed redirect to signin.html
         }
     }).catch(function handleTokenError(error) {
@@ -109,6 +109,7 @@ WildRydes.map = WildRydes.map || {};
         $('#updates').append($('<li>' + text + '</li>'));
     }
 }(jQuery));
+
 
 
 
