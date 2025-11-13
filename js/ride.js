@@ -3,31 +3,14 @@
 var WildRydes = window.WildRydes || {};
 WildRydes.map = WildRydes.map || {};
 
-    (function rideScopeWrapper($) {
-    var authToken;
+(function rideScopeWrapper($) {
 
-    // Get auth token
-    WildRydes.authToken.then(function setAuthToken(token) {
-        if (token) {
-            authToken = token;
-        } else {
-        
-            // Removed redirect to signin.html
-        }
-    }).catch(function handleTokenError(error) {
-        console.error('Token error:', error);
-        alert('Authentication failed.');
-    });
-        
+    // Request unicorn without authentication
     function requestUnicorn(pickupLocation) {
-        if (!authToken) {
-        alert('You are not authenticated. Please sign in.');
-        return;
-        }
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/ride',
-            
+            // Removed Authorization header
             data: JSON.stringify({
                 PickupLocation: {
                     Latitude: pickupLocation.latitude,
@@ -37,41 +20,15 @@ WildRydes.map = WildRydes.map || {};
             contentType: 'application/json',
             success: completeRequest,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
-                console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-                
-            }
-        });
+                console.error('Error requesting ride:', textStatus, ', Details:', errorThrown);
+                       });
     }
 
     function completeRequest(result) {
-        var unicorn;
-        var pronoun;
-        console.log('Response received from API: ', result);
-        unicorn = result.Unicorn;
-        pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
-        displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
-        animateArrival(function animateCallback() {
-            displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
-            WildRydes.map.unsetLocation();
-            $('#request').prop('disabled', 'disabled');
-            $('#request').text('Set Pickup');
-        });
-    }
+        var unicorn = result.Unicorn;
+        var pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
 
-    // Register click handler for #request button
-    $(function onDocReady() {
-        $('#request').click(handleRequestClick);
-        $(WildRydes.map).on('pickupChange', handlePickupChanged);
-
-        WildRydes.authToken.then(function updateAuthMessage(token) {
-            if (token) {
-                displayUpdate('You are authenticated. Click to see your <a href="#authTokenModal" data-toggle="modal">auth token</a>.');
-                $('.authToken').text(token);
-            }
-        });
-
-        if (!_config.api.invokeUrl) {
-            $('#noApiMessage').show();
+       ();
         }
     });
 
@@ -87,9 +44,7 @@ WildRydes.map = WildRydes.map || {};
         requestUnicorn(pickupLocation);
     }
 
-    function animateArrival(callback) {
-        var dest = WildRydes.map.selectedPoint;
-        var origin = {};
+    function animate var origin = {};
 
         if (dest.latitude > WildRydes.map.center.latitude) {
             origin.latitude = WildRydes.map.extent.minLat;
@@ -109,11 +64,5 @@ WildRydes.map = WildRydes.map || {};
     function displayUpdate(text) {
         $('#updates').append($('<li>' + text + '</li>'));
     }
+
 }(jQuery));
-
-
-
-
-
-
-
