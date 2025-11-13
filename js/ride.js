@@ -27,9 +27,7 @@ WildRydes.map = WildRydes.map || {};
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/ride',
-            headers: {
-                Authorization: authToken
-            },
+            
             data: JSON.stringify({
                 PickupLocation: {
                     Latitude: pickupLocation.latitude,
@@ -112,6 +110,7 @@ WildRydes.map = WildRydes.map || {};
         $('#updates').append($('<li>' + text + '</li>'));
     }
 }(jQuery));
+
 
 
 
