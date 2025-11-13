@@ -20,10 +20,7 @@ WildRydes.map = WildRydes.map || {};
     });
         
     function requestUnicorn(pickupLocation) {
-        if (!authToken) {
-        alert('You are not authenticated. Please sign in.');
-        return;
-        }
+        
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/ride',
@@ -110,3 +107,4 @@ WildRydes.map = WildRydes.map || {};
         $('#updates').append($('<li>' + text + '</li>'));
     }
 }(jQuery));
+
